@@ -22,7 +22,7 @@ public class Department {
     private Integer id;
 
     @NotBlank
-    private String name;
+    private String departmentName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Client client;

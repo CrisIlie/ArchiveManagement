@@ -5,7 +5,8 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import javax.validation.constraints.Past;
+import java.sql.Date;
 
 @Entity
 @Table
@@ -16,28 +17,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Client {
+public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank
-    private String clientName;
+    private String documentTitle;
 
     @NotBlank
-    private String address;
+    private String documentDescription;
 
     @NotBlank
-    private String email;
+    private String documentDepartment;
 
-    private Boolean active;
+    @NotBlank
+    @Past(message="Archiving date must be less than today")
+    private Date archivingDate;
 
-    @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "client")
-    private List<Department> departments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Box box;
 
-    @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "client")
-    private List<User> users;
 }

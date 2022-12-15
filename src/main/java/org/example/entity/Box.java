@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -54,6 +55,9 @@ public class Box {
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
+    @OneToMany(cascade = {CascadeType.ALL},
+            mappedBy = "box")
+    private List<Document> documents;
 
 
 }
