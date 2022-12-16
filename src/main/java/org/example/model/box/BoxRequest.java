@@ -46,4 +46,7 @@ public class BoxRequest {
 
     @NotBlank(message = "Storage time must be a number (number of years)")
     private Integer storageTime;
+
+    private Integer departmentId;
+    private int[] boxDepartmentsIds;
 }

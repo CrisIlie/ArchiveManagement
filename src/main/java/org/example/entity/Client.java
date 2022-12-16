@@ -29,7 +29,7 @@ public class Client {
     private String address;
 
     @NotBlank
-    private String email;
+    private String clientEmail;
 
     private Boolean active;
 

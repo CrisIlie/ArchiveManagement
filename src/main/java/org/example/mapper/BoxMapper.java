@@ -1,8 +1,7 @@
 package org.example.mapper;
 
 import org.example.entity.Box;
-import org.example.model.box.BoxRequest;
-import org.example.model.box.BoxResponse;
+import org.example.model.box.*;
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -19,8 +18,6 @@ public interface BoxMapper {
     List<BoxResponse> map(List<Box> allBoxes);
 
     Box map(RequestUpdateDepartment requestUpdateDepartment);
-
-    Box map(RequestUpdateDocument requestUpdateDocument);
 
     Box map(RequestUpdateSummary requestUpdateSummary);
 

@@ -8,6 +8,6 @@ public class ClientResponse {
     private Integer id;
     private String clientName;
     private String address;
-    private String email;
+    private String clientEmail;
     private Boolean active;
 }

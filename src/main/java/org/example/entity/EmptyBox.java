@@ -5,6 +5,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -23,6 +24,7 @@ public class EmptyBox {
     @NotBlank
     private String boxType;
 
+    @NotNull
     private Integer stock;
 
 }

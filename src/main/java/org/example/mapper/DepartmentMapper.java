@@ -1,6 +1,9 @@
 package org.example.mapper;
 
 import org.example.entity.Department;
+import org.example.model.department.DepartmentRequest;
+import org.example.model.department.DepartmentResponse;
+import org.example.model.department.RequestUpdateDepartmentName;
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.ComponentScan;
 

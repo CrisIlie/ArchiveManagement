@@ -1,6 +1,7 @@
 package org.example.mapper;
 
 import org.example.entity.Document;
+import org.example.model.document.*;
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.ComponentScan;
 

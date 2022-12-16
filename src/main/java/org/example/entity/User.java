@@ -21,10 +21,10 @@ public class User {
     private Integer id;
 
     @NotBlank
-    private String name;
+    private String userName;
 
     @NotBlank
-    private String email;
+    private String userEmail;
 
     private Boolean active;
 

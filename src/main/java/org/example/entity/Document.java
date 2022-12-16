@@ -5,6 +5,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.sql.Date;
 
@@ -32,7 +33,7 @@ public class Document {
     @NotBlank
     private String documentDepartment;
 
-    @NotBlank
+    @NotNull
     @Past(message="Archiving date must be less than today")
     private Date archivingDate;
 
