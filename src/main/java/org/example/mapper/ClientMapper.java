@@ -1,8 +1,7 @@
 package org.example.mapper;
 
 import org.example.entity.Client;
-import org.example.model.client.ClientRequest;
-import org.example.model.client.ClientResponse;
+import org.example.model.client.*;
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.ComponentScan;
 

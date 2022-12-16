@@ -47,4 +47,11 @@ public class ArchiveRepositoryImpl {
                 .setParameter("boxType", boxType)
                 .getResultList();
     }
+
+    public List<Document> findAllByClientBoxCode(String clientBoxCode){
+        return entityManager.createQuery(
+                "SELECT t from Document t where t.clientBoxCode=:clientBoxCode, Document.class")
+                .setParameter("clientBoxCode", clientBoxCode)
+                .getResultList();
+    }
 }

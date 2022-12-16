@@ -1,7 +1,6 @@
 package org.example.repository;
 
 import org.example.entity.Box;
-import org.example.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
