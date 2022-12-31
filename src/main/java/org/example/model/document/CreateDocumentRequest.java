@@ -3,8 +3,8 @@ package org.example.model.document;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 public class CreateDocumentRequest {
@@ -16,6 +16,9 @@ public class CreateDocumentRequest {
 
     @NotBlank
     private String documentDepartment;
+
+    @NotBlank
+    private String clientBoxCode;
 
     private Date archivingDate;
 

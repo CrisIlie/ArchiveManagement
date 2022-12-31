@@ -11,10 +11,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>recordsManagementApplication</artifactId>
+    <artifactId>ArchiveManagement</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>recordsManagementApplication</name>
-    <description>Application for records management</description>
+    <name>ArchiveManagement</name>
+    <description>Application for archive management</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -87,7 +87,15 @@
             <artifactId>mail</artifactId>
             <version>1.5.0-b01</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.0.Final</version>
+        </dependency>
     </dependencies>
 
     <build>

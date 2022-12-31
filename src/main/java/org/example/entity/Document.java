@@ -7,7 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table
@@ -17,7 +18,6 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Document {
 
     @Id
@@ -32,6 +32,9 @@ public class Document {
 
     @NotBlank
     private String documentDepartment;
+
+    @NotBlank
+    private String clientBoxCode;
 
     @NotNull
     @Past(message="Archiving date must be less than today")

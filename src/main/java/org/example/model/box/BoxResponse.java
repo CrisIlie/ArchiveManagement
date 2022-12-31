@@ -2,7 +2,7 @@ package org.example.model.box;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 @Data

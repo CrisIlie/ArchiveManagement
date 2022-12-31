@@ -2,7 +2,8 @@ package org.example.model.document;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 public class DocumentResponse {
@@ -11,5 +12,6 @@ public class DocumentResponse {
     private String documentTitle;
     private String documentDescription;
     private String departmentName;
+    private String clientBoxCode;
     private Date archivingDate;
 }

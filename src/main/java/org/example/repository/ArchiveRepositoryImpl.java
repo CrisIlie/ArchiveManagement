@@ -27,31 +27,5 @@ public class ArchiveRepositoryImpl {
                 .getResultList();
     }
 
-    public List<Department> findAllByClient(String clientName){
-        return entityManager.createQuery(
-                "SELECT t from Department t where t.client=:clientName", Department.class)
-                .setParameter("clientName", clientName)
-                .getResultList();
-    }
 
-    public List<User> findAllUsersByClient(String name){
-        return entityManager.createQuery(
-                "SELECT t from User t where t.client=:name", User.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-    public List<EmptyBox> findAllByBoxType(String boxType){
-        return entityManager.createQuery(
-                "SELECT t from EmptyBox t where t.boxType=:boxType")
-                .setParameter("boxType", boxType)
-                .getResultList();
-    }
-
-    public List<Document> findAllByClientBoxCode(String clientBoxCode){
-        return entityManager.createQuery(
-                "SELECT t from Document t where t.clientBoxCode=:clientBoxCode, Document.class")
-                .setParameter("clientBoxCode", clientBoxCode)
-                .getResultList();
-    }
 }

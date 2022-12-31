@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class EmptyBox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

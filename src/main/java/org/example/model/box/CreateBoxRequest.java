@@ -3,7 +3,9 @@ package org.example.model.box;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 
 @Data
 public class CreateBoxRequest {
@@ -19,13 +21,11 @@ public class CreateBoxRequest {
     private String boxSummary;
     @NotBlank
     private String nomenclatureId;
-    @NotBlank
+    @NotNull
     private Date beginningDate;
-    @NotBlank
+    @NotNull
     private Date endDate;
-    @NotBlank
+    @NotNull
     private Integer storageTime;
 
-    private Integer departmentId;
-    private int[] boxDepartmentsIds;
 }

@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 @Builder
@@ -30,7 +32,7 @@ public class BoxRequest {
     private String clientName;
 
     @NotBlank(message = "Invalid department name")
-    private Integer departmentName;
+    private String departmentName;
 
     @NotBlank
     private String boxSummary;
@@ -44,7 +46,7 @@ public class BoxRequest {
     @Past
     private Date endDate;
 
-    @NotBlank(message = "Storage time must be a number (number of years)")
+    @NotNull(message = "Storage time must be a number (number of years)")
     private Integer storageTime;
 
     private Integer departmentId;

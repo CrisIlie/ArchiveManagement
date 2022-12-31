@@ -1,12 +1,14 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +19,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Box {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class Box {
     private String clientName;
 
     @NotBlank
-    private Integer departmentName;
+    private String departmentName;
 
     @NotBlank
     private String boxSummary;
@@ -41,15 +42,16 @@ public class Box {
     @NotBlank
     private String nomenclatureId;
 
-    @NotBlank
+    @NotNull
     @Past(message = "Beginning date must be less than today.")
     private Date beginningDate;
 
-    @NotBlank
+    @NotNull
     @Past(message = "End date must be less than today and more or equal with beginning date")
+    @JsonFormat(pattern="yyyy-mm-dd")
     private Date endDate;
 
-    @NotBlank
+    @NotNull
     private Integer storageTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

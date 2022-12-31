@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 @Builder
@@ -25,6 +26,9 @@ public class DocumentRequest {
 
     @NotBlank(message = "Invalid department name")
     private String departmentName;
+
+    @NotBlank(message = "Invalid client box code")
+    private String clientCodeBox;
 
     @Past
     private Date archivingDate;
