@@ -23,17 +23,13 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserResponse createUser(UserRequest userRequest){
-        checkDuplicate(userRequest);
-        User user = userMapper.map(userRequest);
-        return userMapper.map(userRepository.save(user));
-    }
-
-    private void checkDuplicate(UserRequest userRequest) {
         for (User user : userRepository.findAll()){
             if(user.getUserName().equalsIgnoreCase(userRequest.getUserName())){
                 throw new BusinessException("This user name is already used. Choose another name!");
             }
         }
+        User user = userMapper.map(userRequest);
+        return userMapper.map(userRepository.save(user));
     }
 
     public List<UserResponse> findAll(){
@@ -50,5 +46,11 @@ public class UserService {
         User userNameToUpdate = userRepository.findById(id).orElseThrow(
                 ()-> new BusinessException(String.format("User with id: %s not found", id))
         );
+        requestUpdateNameUser.setUserName(requestUpdateNameUser.getUserName());
+    }
+
+    public void deleteUser(Integer id){
+        User userToDelete = userRepository.findById(id).orElseThrow(()-> new BusinessException("User not found"));
+        userRepository.delete(userToDelete);
     }
 }

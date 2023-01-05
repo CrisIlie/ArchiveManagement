@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.envers.Audited;
 
@@ -7,8 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.util.Date;
-
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -18,29 +18,26 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Document {
+public class EmptyBoxOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    private String documentTitle;
+    @NotNull
+    @Past(message = "Consultation date must be less than today or today.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate emptyBoxesOrderDate;
 
     @NotBlank
-    private String documentDescription;
+    private String clientName;
 
     @NotBlank
-    private String documentDepartment;
+    private String department;
 
     @NotBlank
-    private String clientBoxCode;
+    private String boxType;
 
     @NotNull
-    @Past(message="Archiving date must be less than today")
-    private Date archivingDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Box box;
-
+    private Integer orderedAmount;
 }

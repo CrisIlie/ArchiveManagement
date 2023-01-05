@@ -39,4 +39,8 @@ public class Client {
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "client")
     private List<User> users;
+
+    @OneToMany(cascade = {CascadeType.ALL},
+    mappedBy = "client")
+    private List<Box> boxes;
 }

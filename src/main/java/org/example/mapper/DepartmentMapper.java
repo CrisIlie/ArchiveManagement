@@ -16,7 +16,7 @@ public interface DepartmentMapper {
 
     DepartmentResponse map(Department department);
 
-    List<DepartmentResponse> map(List<Department> allDepartments);
+    List<DepartmentResponse> map(List<Department> all);
 
     Department map(RequestUpdateDepartmentName requestUpdateDepartmentName);
 

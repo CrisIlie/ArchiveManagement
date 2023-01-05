@@ -30,5 +30,8 @@ public class Department {
             mappedBy = "department")
     private List<Box> boxes;
 
+    @OneToMany(cascade = {CascadeType.ALL},
+            mappedBy = "department")
+    private List<EmptyBox> emptyBoxes;
 
 }

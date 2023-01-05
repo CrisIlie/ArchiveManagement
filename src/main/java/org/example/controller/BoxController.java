@@ -56,4 +56,9 @@ public class BoxController {
     public void updateSummary(@PathVariable Integer id, @RequestBody @Valid RequestUpdateSummary requestUpdateSummary){
         boxService.updateSummary(id, requestUpdateSummary);
     }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteBox(@PathVariable Integer id){
+        boxService.deleteBox(id);
+    }
 }

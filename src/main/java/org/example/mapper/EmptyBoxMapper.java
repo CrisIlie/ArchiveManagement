@@ -16,7 +16,7 @@ public interface EmptyBoxMapper {
 
     EmptyBoxResponse map(EmptyBox emptyBox);
 
-    List<EmptyBoxResponse> map(List<EmptyBox> allEmptyBoxes);
+    List<EmptyBoxResponse> map(List<EmptyBox> all);
 
     EmptyBox map(RequestUpdateStock requestUpdateStock);
 }

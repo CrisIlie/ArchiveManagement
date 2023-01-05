@@ -15,7 +15,7 @@ public interface BoxMapper {
 
     BoxResponse map(Box box);
 
-    List<BoxResponse> map(List<Box> allBoxes);
+    List<BoxResponse> map(List<Box> all);
 
     Box map(RequestUpdateDepartment requestUpdateDepartment);
 

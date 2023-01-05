@@ -31,6 +31,11 @@ public class ClientController {
         return clientService.findById(id);
     }
 
+    @GetMapping("find/details/{id}")
+    public ClientDetailResponse findByIdWithDetails(@PathVariable("id") Integer id){
+        return clientService.findByIdWithDetails(id);
+    }
+
     @GetMapping
     public List<ClientResponse> findAll() {
         return clientService.findAll();
@@ -49,5 +54,10 @@ public class ClientController {
     @PostMapping("update-client-name/{id}")
     public void updateClientName(@PathVariable Integer id, @RequestBody @Valid RequestUpdateNameClient requestUpdateNameClient) {
         clientService.updateClientName(id, requestUpdateNameClient);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Integer id){
+        clientService.deleteById(id);
     }
 }

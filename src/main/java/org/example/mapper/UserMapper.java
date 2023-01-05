@@ -16,7 +16,7 @@ public interface UserMapper {
 
     UserResponse map(User user);
 
-    List<UserResponse> map(List<User> allUsers);
+    List<UserResponse> map(List<User> all);
 
     User map(RequestUpdateNameUser requestUpdateNameUser);
 }

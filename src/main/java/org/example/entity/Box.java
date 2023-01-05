@@ -2,14 +2,17 @@ package org.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.example.entity.statusEnum.BoxStatusEnum;
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+
+
 
 @Entity
 @Table
@@ -28,6 +31,7 @@ public class Box {
     private String boxType;
 
     @NotBlank
+    @Column(unique=true)
     private String clientBoxCode;
 
     @NotBlank
@@ -35,6 +39,9 @@ public class Box {
 
     @NotBlank
     private String departmentName;
+
+    @Enumerated(EnumType.STRING)
+    private BoxStatusEnum status;
 
     @NotBlank
     private String boxSummary;
@@ -44,23 +51,24 @@ public class Box {
 
     @NotNull
     @Past(message = "Beginning date must be less than today.")
-    private Date beginningDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate beginningDate;
 
     @NotNull
     @Past(message = "End date must be less than today and more or equal with beginning date")
-    @JsonFormat(pattern="yyyy-mm-dd")
-    private Date endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
 
     @NotNull
     private Integer storageTime;
 
+    private Boolean inStorage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
 
-    @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "box")
-    private List<Document> documents;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Client client;
 
 }
 

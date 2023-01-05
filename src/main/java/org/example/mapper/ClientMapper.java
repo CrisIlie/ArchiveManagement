@@ -15,7 +15,9 @@ public interface ClientMapper {
 
     ClientResponse map(Client client);
 
-    List<ClientResponse> map(List<Client> allClients);
+    List<ClientResponse> map(List<Client> all);
+
+    ClientDetailResponse mapDetails(Client client);
 
     Client map(RequestUpdateNameClient requestUpdateNameClient);
 

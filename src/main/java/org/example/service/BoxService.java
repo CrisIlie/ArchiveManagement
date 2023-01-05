@@ -20,23 +20,19 @@ public class BoxService {
 
     private final BoxMapper boxMapper;
 
-    public BoxResponse createBox(BoxRequest boxRequest){
-        checkDuplicate(boxRequest);
+    public BoxResponse createBox(BoxRequest boxRequest) {
+        for (Box box : boxRepository.findAll()) {
+            if (box.getClientBoxCode().equals(boxRequest.getClientBoxCode())) {
+                throw new BusinessException("This box already exists!");
+            }
+        }
         validateClientBoxCode(boxRequest.getClientBoxCode());
         Box box = boxMapper.map(boxRequest);
         return boxMapper.map(boxRepository.save(box));
     }
 
-    public void checkDuplicate(BoxRequest boxRequest){
-        for(Box box : boxRepository.findAll()){
-            if(box.getClientBoxCode().equals(boxRequest.getClientBoxCode())){
-                throw new BusinessException("This box already exists!");
-            }
-        }
-    }
-
-    public void validateClientBoxCode(String string){
-        if(string.isBlank() || string.length()<6){
+    public void validateClientBoxCode(String string) {
+        if (string.isBlank() || string.length() < 6) {
             throw new BusinessException("Invalid client box code!");
         }
     }
@@ -60,23 +56,28 @@ public class BoxService {
 
     public void updateDepartment(Integer id, RequestUpdateDepartment requestUpdateDepartment) {
         Box boxDepartmentToUpdate = boxRepository.findById(id).orElseThrow(
-                ()-> new BusinessException(String.format("Box with id: %s not found", id))
+                () -> new BusinessException(String.format("Box with id: %s not found", id))
         );
         boxDepartmentToUpdate.setDepartmentName(requestUpdateDepartment.getDepartmentName());
     }
 
-    public void updateStorageTime(Integer id, RequestUpdateStorageTime requestUpdateStorageTime){
+    public void updateStorageTime(Integer id, RequestUpdateStorageTime requestUpdateStorageTime) {
         Box boxStorageTimeToUpdate = boxRepository.findById(id).orElseThrow(
-                ()-> new BusinessException(String.format("Box with id: %s not found", id))
+                () -> new BusinessException(String.format("Box with id: %s not found", id))
         );
         boxStorageTimeToUpdate.setStorageTime(requestUpdateStorageTime.getStorageTime());
     }
 
-    public void updateSummary(Integer id, RequestUpdateSummary requestUpdateSummary){
+    public void updateSummary(Integer id, RequestUpdateSummary requestUpdateSummary) {
         Box boxSummaryToUpdate = boxRepository.findById(id).orElseThrow(
-                ()-> new BusinessException(String.format("Box with id: %s not found", id))
+                () -> new BusinessException(String.format("Box with id: %s not found", id))
         );
         boxSummaryToUpdate.setBoxSummary(requestUpdateSummary.getBoxSummary());
+    }
+
+    public void deleteBox(Integer id){
+        Box boxToDelete = boxRepository.findById(id).orElseThrow(()-> new BusinessException("Box not found"));
+        boxRepository.delete(boxToDelete);
     }
 }
 

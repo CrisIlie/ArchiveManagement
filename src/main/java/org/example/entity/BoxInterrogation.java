@@ -5,8 +5,8 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Entity
@@ -17,21 +17,22 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmptyBox {
+public class BoxInterrogation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    private String boxType;
+    @NotNull
+    @Past(message = "Consultation date must be less than today or today.")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate consultationDate;
 
     @NotNull
-    private Integer stock;
+    private String clientName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate orderDate;
+    @NotNull
+    private String department;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
 
 }

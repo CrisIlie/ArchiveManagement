@@ -11,4 +11,6 @@ public interface ClientRepository extends JpaRepository<org.example.entity.Clien
     List<Client> findAllByOrderByClientName();
 
     List<Client> findAllByClientName(@Param("clientName") String clientName);
+
+
 }
