@@ -19,14 +19,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
+    @Column(nullable = false, unique = true, length = 30)
     private String userName;
 
-    @NotBlank
+
+    @Column(nullable = false, unique = true, length = 50)
     private String userEmail;
 
-    private Boolean active;
+    @Column(nullable = false, length = 25)
+    private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Client client;
 }

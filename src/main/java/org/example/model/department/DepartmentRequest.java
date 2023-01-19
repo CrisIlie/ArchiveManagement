@@ -18,7 +18,6 @@ public class DepartmentRequest {
     @NotBlank(message = "Invalid department name")
     private String departmentName;
 
-    private Integer clientId;
-    private int[] departmentClientsIds;
+    private Integer client_id;
 
 }

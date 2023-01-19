@@ -9,5 +9,4 @@ public class ClientResponse {
     private String clientName;
     private String address;
     private String clientEmail;
-    private Boolean active;
 }

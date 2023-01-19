@@ -13,4 +13,7 @@ public class CreateEmptyBoxRequest {
 
     @NotNull
     private Integer stock;
+
+    @NotNull
+    private Integer orderedAmount;
 }

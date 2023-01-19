@@ -17,8 +17,6 @@ public interface BoxMapper {
 
     List<BoxResponse> map(List<Box> all);
 
-    Box map(RequestUpdateDepartment requestUpdateDepartment);
-
     Box map(RequestUpdateSummary requestUpdateSummary);
 
     Box map(RequestUpdateStorageTime requestUpdateStorageTime);

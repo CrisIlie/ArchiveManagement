@@ -7,4 +7,5 @@ public class EmptyBoxResponse {
     private Integer id;
     private String boxType;
     private Integer stock;
+    private Integer orderedAmount;
 }

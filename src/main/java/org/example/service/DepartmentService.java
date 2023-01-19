@@ -53,5 +53,11 @@ public class DepartmentService {
         departmentNameToUpdate.setDepartmentName(requestUpdateDepartmentName.getDepartmentName());
     }
 
+    public void deleteById(Integer id){
+        Department departmentToDelete = departmentRepository.findById(id).orElseThrow(
+                ()-> new BusinessException("Department not found")
+        );
+        departmentRepository.deleteById(departmentToDelete.getId());
+    }
 
 }

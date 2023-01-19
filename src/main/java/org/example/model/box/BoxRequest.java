@@ -1,16 +1,17 @@
 package org.example.model.box;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.entity.statusEnum.BoxStatusEnum;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -28,12 +29,6 @@ public class BoxRequest {
     @NotBlank(message = "Invalid box code")
     private String clientBoxCode;
 
-    @NotBlank(message = "Invalid client name")
-    private String clientName;
-
-    @NotBlank(message = "Invalid department name")
-    private String departmentName;
-
     @NotBlank
     private String boxSummary;
 
@@ -41,14 +36,19 @@ public class BoxRequest {
     private String nomenclatureId;
 
     @Past
-    private Date beginningDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate beginningDate;
 
     @Past
-    private Date endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
 
     @NotNull(message = "Storage time must be a number (number of years)")
     private Integer storageTime;
 
     private Integer departmentId;
-    private int[] boxDepartmentsIds;
+
+    private Integer clientId;
+
+    private Integer orderId;
 }

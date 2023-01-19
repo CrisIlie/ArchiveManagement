@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Box;
+import org.example.entity.statusEnum.BoxStatusEnum;
 import org.example.exception.BusinessException;
 import org.example.mapper.BoxMapper;
 import org.example.model.box.*;
@@ -9,6 +10,7 @@ import org.example.repository.BoxRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +30,7 @@ public class BoxService {
         }
         validateClientBoxCode(boxRequest.getClientBoxCode());
         Box box = boxMapper.map(boxRequest);
+        box.setStatus(BoxStatusEnum.IN_ARCHIVE);
         return boxMapper.map(boxRepository.save(box));
     }
 
@@ -37,28 +40,24 @@ public class BoxService {
         }
     }
 
+    public List<BoxResponse> getAllBoxes(){
+        return boxMapper.map(boxRepository.findAll());
+    }
     public BoxResponse findById(Integer id) {
         return boxMapper.map(boxRepository.findById(id).orElseThrow(
                 () -> new BusinessException("Box id not found")
         ));
     }
+    public List<BoxResponse> findAll() {
+        return boxMapper.map(boxRepository.findAll());
+    }
+
 
     public void updateBoxType(Integer id, RequestUpdateBoxType requestUpdateBoxType) {
         Box boxToUpdate = boxRepository.findById(id).orElseThrow(
                 () -> new BusinessException(String.format("Box with id: %s not found", id))
         );
         boxToUpdate.setBoxType(requestUpdateBoxType.getBoxType());
-    }
-
-    public List<BoxResponse> findAll() {
-        return boxMapper.map(boxRepository.findAll());
-    }
-
-    public void updateDepartment(Integer id, RequestUpdateDepartment requestUpdateDepartment) {
-        Box boxDepartmentToUpdate = boxRepository.findById(id).orElseThrow(
-                () -> new BusinessException(String.format("Box with id: %s not found", id))
-        );
-        boxDepartmentToUpdate.setDepartmentName(requestUpdateDepartment.getDepartmentName());
     }
 
     public void updateStorageTime(Integer id, RequestUpdateStorageTime requestUpdateStorageTime) {
@@ -79,5 +78,7 @@ public class BoxService {
         Box boxToDelete = boxRepository.findById(id).orElseThrow(()-> new BusinessException("Box not found"));
         boxRepository.delete(boxToDelete);
     }
+
+
 }
 

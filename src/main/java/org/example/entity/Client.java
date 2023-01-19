@@ -5,6 +5,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ public class Client {
     private Integer id;
 
     @NotBlank
+    @Column(unique = true)
     private String clientName;
 
     @NotBlank
@@ -30,7 +32,6 @@ public class Client {
     @NotBlank
     private String clientEmail;
 
-    private Boolean active;
 
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "client")
@@ -38,9 +39,12 @@ public class Client {
 
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "client")
-    private List<User> users;
+    private List<Box> boxes = new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.ALL},
-    mappedBy = "client")
-    private List<Box> boxes;
+    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "client")
+    private List<EmptyBoxOrder> emptyBoxOrders;
+
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "client")
+    private List<Order> boxOrders;
+
 }

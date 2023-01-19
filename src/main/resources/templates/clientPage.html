@@ -6,60 +6,72 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link th:href="@{/css/style.css}" rel="stylesheet">
-<!--    <style>-->
-<!--        body {-->
-<!--            background-image: url(/images/background8.jpg);-->
-<!--        }-->
-<!--    </style>-->
+    <style>
+        body {
+            background-image: url(/images/arcv1.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
 
 <ul class="nav nav-pills nav-justified">
     <li class="nav-item">
         <form th:action="@{/welcome}">
-            <button class="nav-link active" aria-current="page">Home</button>
+            <button class="nav-link active"
+                    style="background-color: black;
+                    font-weight: bold;
+                    font-size: large;"
+                    aria-current="page">Home
+            </button>
         </form>
     </li>
-<!--    <li class="nav-item">-->
-<!--        <form th:action="@{/manicurist}">-->
-<!--            <button class="nav-link active">Manicurists</button>-->
-<!--        </form>-->
-<!--    </li>-->
     <li class="nav-item">
         <form th:action="@{/client}">
-            <button class="nav-link active">Clients</button>
+            <button class="nav-link active" style="background-color:black; font-weight: bold;
+                    font-size: large;">Clients</button>
         </form>
     </li>
     <li class="nav-item">
         <form th:action="@{/box}">
-            <button class="nav-link active">Boxes</button>
+            <button class="nav-link active" style="background-color:black; font-weight: bold;
+                    font-size: large;">Boxes</button>
         </form>
     </li>
     <li class="nav-item">
-        <form th:action="@{/box-consultation}">
-            <button class="nav-link active">Box Consultation</button>
+        <form th:action="@{/order}">
+            <button class="nav-link active" style="background-color:black; font-weight: bold;
+                    font-size: large;">Box Order</button>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form th:action="@{/empty-box-order}" >
+            <button class="nav-link active" style="background-color:black; font-weight: bold;
+                    font-size: large;">Empty Box Order</button>
         </form>
     </li>
 </ul>
 
-
+<div style="padding-top: 30px; padding-left: 5px">
 <form th:action="@{/client/allClients}">
-    <div>
-        <button type="submit" class="btn btn-success"> View all clients</button>
+    <div style="padding-top: 30px; padding-left: 5px">
+        <button type="submit" class="btn btn-secondary"> Show all clients</button>
     </div>
 </form>
-<form th:action="@{/customer/goToCreateClientPage}">
-    <div>
-        <button type="submit" class="btn btn-success"> Add new client</button>
+<form th:action="@{/client/goToCreateClientPage}">
+    <div style="padding-top: 30px; padding-left: 5px">
+        <button type="submit" class="btn btn-secondary"> Add new client</button>
     </div>
 </form>
-
-<!--<form th:action="@{/client/findById}">-->
-<!--    <div>-->
-<!--        <button type="submit" class="btn btn-success"> View Appointments for a Customer</button>-->
-<!--        <input type="text" name="firstName" placeholder="First name" required>-->
-<!--    </div>-->
-<!--</form>-->
+</div>
+<form th:action="@{/client/goToUpdateClientName}">
+    <div style="padding-top: 30px; padding-left: 5px">
+        <button type="submit" class="btn btn-secondary"> Update name for a client</button>
+        <input type="text" name="clientName" placeholder="Client name" required>
+    </div>
+</form>
 
 </body>
 </html>

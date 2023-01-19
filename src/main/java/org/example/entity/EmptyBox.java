@@ -28,10 +28,4 @@ public class EmptyBox {
     @NotNull
     private Integer stock;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate orderDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Department department;
-
 }

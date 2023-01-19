@@ -1,26 +1,65 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> Archive Management</title>
+    <title> Archive Management </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        body {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: lightblue;
+        }
+
+        div {
+            padding: 2px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container text-center">
     <div>
-        <h1> Welcome to Archive Management!</h1>
+        <div class="container">
+            <div class="intro" style="padding-top: 30px; padding-left: 5px; display:grid">
+                <h2 class="text-center">Archive Management Application</h2>
+                <p class="text-center" >Archives are our collective and personal memory, a unique and irreplaceable part of our heritage.
+                    They contain reliable evidence of past actions and decisions, of the reasons for them and of their impact on those affected.
+                    Inevitably, archive collections contain personal information about people’s public and private lives. </p>
+
+                <p class = "text-center" > As well as their cultural value, archives are about long-term accountability.
+                    They provide the evidence required to protect people’s rights and seek remedies when necessary.
+                    They enable the rights to freedom of expression and information through journalistic and academic expression, historical
+                    research and public access to official documents and are an essential resource for business, writers, genealogists, researchers and historians.</p>
+            </div>
+        </div>
+        <div>
+            <form th:action="@{/goToApplication}">
+                <div>
+                    <button type="submit" class="btn btn-light"> Application</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form th:action="@{/register}">
+                <div>
+                    <button type="submit" class="btn btn-light"> Register</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <a th:href="@{/login}">
+                <div>
+                    <button type="submit" class="btn btn-light"> Login</button>
+                </div>
+            </a>
+        </div>
     </div>
-    <div>
-        <h3><a th:href="@{/goToApplication}"> Application </a></h3>
-        <h3><a th:href="@{/register}"> Register </a></h3>
-        <h3><a th:href="@{/login}"> Login </a></h3>
-    </div>
+
 </div>
-
-
-
 
 </body>
 </html>

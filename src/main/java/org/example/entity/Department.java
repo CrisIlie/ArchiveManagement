@@ -21,17 +21,15 @@ public class Department {
     private Integer id;
 
     @NotBlank
+    @Column(unique=true)
     private String departmentName;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="client_id", referencedColumnName = "id")
     private Client client;
 
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "department")
     private List<Box> boxes;
-
-    @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "department")
-    private List<EmptyBox> emptyBoxes;
 
 }

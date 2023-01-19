@@ -9,4 +9,6 @@ public class CreateDepartmentRequest {
 
     @NotBlank
     private String departmentName;
+
+    private Integer client_id;
 }

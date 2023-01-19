@@ -23,7 +23,6 @@ public class ClientRequest {
     @NotBlank
     private String clientEmail;
 
-    private Boolean active;
 
 
 }

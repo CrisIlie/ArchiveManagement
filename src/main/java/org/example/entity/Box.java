@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.example.entity.statusEnum.BoxStatusEnum;
 import org.hibernate.envers.Audited;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -34,12 +35,6 @@ public class Box {
     @Column(unique=true)
     private String clientBoxCode;
 
-    @NotBlank
-    private String clientName;
-
-    @NotBlank
-    private String departmentName;
-
     @Enumerated(EnumType.STRING)
     private BoxStatusEnum status;
 
@@ -49,12 +44,12 @@ public class Box {
     @NotBlank
     private String nomenclatureId;
 
-    @NotNull
+
     @Past(message = "Beginning date must be less than today.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate beginningDate;
 
-    @NotNull
+
     @Past(message = "End date must be less than today and more or equal with beginning date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
@@ -62,13 +57,16 @@ public class Box {
     @NotNull
     private Integer storageTime;
 
-    private Boolean inStorage;
-
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id", referencedColumnName = "id")
     private Department department;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="client_id", referencedColumnName = "id")
     private Client client;
+
+    @ManyToMany(mappedBy = "orderedBoxes")
+    private List<Order> boxOrders = new ArrayList<>();
 
 }
 

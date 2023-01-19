@@ -2,6 +2,7 @@ package org.example.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.*;
+import org.example.entity.statusEnum.BoxStatusEnum;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,10 +21,10 @@ public class ArchiveRepositoryImpl {
                 .getResultList();
     }
 
-    public List<Box> findAllByDepartmentName(String departmentName){
+    public List<Box> findAllByStatus(BoxStatusEnum boxStatus){
         return entityManager.createQuery(
-                "SELECT t from Box t where t.departmentName=:departmentName", Box.class)
-                .setParameter("departmentName", departmentName)
+                "SELECT t from Box t where t.status=:boxStatus", Box.class)
+                .setParameter("boxStatus", boxStatus)
                 .getResultList();
     }
 
