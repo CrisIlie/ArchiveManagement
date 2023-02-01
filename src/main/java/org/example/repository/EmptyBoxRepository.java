@@ -9,5 +9,4 @@ import java.util.List;
 
 public interface EmptyBoxRepository extends JpaRepository<org.example.entity.EmptyBox, Integer> {
 
-    List<EmptyBox> findAllByBoxType(@Param("boxType") String boxType);
 }

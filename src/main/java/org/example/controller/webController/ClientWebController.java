@@ -31,25 +31,55 @@ public class ClientWebController {
         return "allClientsPage";
     }
 
-    @GetMapping("/details")
-    public String viewDetails(@ModelAttribute(value = "id")IdRequest request, Model model){
-        ClientResponse clientResponse = clientService.findById(request.getId());
-        model.addAttribute("client", clientResponse);
-        return "clientDetailsPage";
-    }
 
     @GetMapping("/goToCreateClientPage")
     public String goToCreateClientPage(){return "clientCreatePage";}
 
+    @PostMapping("/create-new-client")
+    public String createClient(@ModelAttribute ClientRequest clientRequest, Model model){
+        clientService.createClient(clientRequest);
+        model.addAttribute("clients", clientService.getAllClients());
+        return "allClientsPage";
+    }
+
     @GetMapping("/goToUpdateClientName")
-    public String goToUpdateClientName(@ModelAttribute(value = "idRequest") IdRequest request, Model model){
+    public String goToUpdateClientName(@ModelAttribute IdRequest request, Model model){
         ClientResponse client = clientService.findById(request.getId());
         model.addAttribute("client", client);
         return "clientUpdateNamePage";
     }
 
-    @GetMapping("/clientWithDetails")
-    public String clientWithDetails(@ModelAttribute IdRequest request, Model model){
+    @PostMapping("/update-name")
+    public String updateClientName(@ModelAttribute RequestUpdateNameClient request,
+                                  Model model) {
+        clientService.updateClientName(request);
+        model.addAttribute("clients", clientService.getAllClients());
+        return "allClientsPage";
+    }
+
+    @GetMapping("/details")
+    public String viewDetails(@ModelAttribute IdRequest request, Model model){
+        ClientResponse clientResponse = clientService.findById(request.getId());
+        model.addAttribute("client", clientResponse);
+        return "clientDetailsPage";
+    }
+
+    @GetMapping("/goToUpdateClientPage")
+    public String goToUpdateClientPage(@ModelAttribute IdRequest request, Model model) {
+        model.addAttribute("client", clientService.findById(request.getId()));
+        return "updateClientPage";
+    }
+
+    @PostMapping("update-client")
+    public String updateClient(@ModelAttribute ClientRequest clientRequest,
+                                   Model model) {
+        clientService.updateClient(clientRequest);
+        model.addAttribute("clients", clientService.getAllClients());
+        return "allClientsPage";
+    }
+
+    @GetMapping("/clientWithOrdersDetails")
+    public String clientWithOrdersDetails(@ModelAttribute IdRequest request, Model model){
         ClientDetailResponseForOrder client = clientService.clientWithBoxOrders(request.getId());
         List<OrderResponseForClientDetail> orders = client.getOrders();
         List<BoxResponseForClientDetail> orderedBoxes = new ArrayList<>();
@@ -63,17 +93,13 @@ public class ClientWebController {
         return "clientWithOrdersPage";
     }
 
-    @PostMapping("/create-new-client")
-    public String createClient(@ModelAttribute(value = "createClientRequest") CreateClientRequest request, Model model){
-        ClientRequest clientRequest = ClientRequest.builder()
-                .clientName(request.getClientName())
-                .address(request.getAddress())
-                .clientEmail(request.getEmail())
-                .build();
-        clientService.createClient(clientRequest);
-        model.addAttribute("clients", clientService.getAllClients());
-        return "allClientsPage";
+    @GetMapping("/clientWithBoxDetails")
+    public String clientWithBoxDetails(@ModelAttribute IdRequest request, Model model){
+        ClientDetailResponseForBox client = clientService.findByIdWithDetails(request.getId());
+        model.addAttribute("client", client);
+        return "clientWithDetailsPage";
     }
+
 
     @PostMapping("/deleteById")
     public String deleteById(@ModelAttribute(value="deleteRequest") IdRequest request, Model model){

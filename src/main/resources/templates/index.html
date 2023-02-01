@@ -8,14 +8,15 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
         body {
+            background-image: url(/images/logo.jpg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            background-color: lightblue;
+            background-color: grey;
         }
 
         div {
-            padding: 2px;
+            padding: -50px;
         }
     </style>
 </head>
@@ -24,9 +25,9 @@
 <div class="container text-center">
     <div>
         <div class="container">
-            <div class="intro" style="padding-top: 30px; padding-left: 5px; display:grid">
+            <div class="intro" style="padding-top: 80px; padding-left: 5px; display:grid">
                 <h2 class="text-center">Archive Management Application</h2>
-                <p class="text-center" >Archives are our collective and personal memory, a unique and irreplaceable part of our heritage.
+                <p class="text-center" style="padding-top: 80px; padding-left: 5px" >Archives are our collective and personal memory, a unique and irreplaceable part of our heritage.
                     They contain reliable evidence of past actions and decisions, of the reasons for them and of their impact on those affected.
                     Inevitably, archive collections contain personal information about people’s public and private lives. </p>
 
@@ -36,21 +37,14 @@
                     research and public access to official documents and are an essential resource for business, writers, genealogists, researchers and historians.</p>
             </div>
         </div>
-        <div>
-            <form th:action="@{/goToApplication}">
-                <div>
-                    <button type="submit" class="btn btn-light"> Application</button>
-                </div>
-            </form>
-        </div>
-        <div>
+        <div style="padding-top: 30px; padding-left: 5px">
             <form th:action="@{/register}">
                 <div>
                     <button type="submit" class="btn btn-light"> Register</button>
                 </div>
             </form>
         </div>
-        <div>
+        <div style="padding-top: 30px; padding-left: 5px">
             <a th:href="@{/login}">
                 <div>
                     <button type="submit" class="btn btn-light"> Login</button>

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.model.department.DepartmentRequest;
 import org.example.model.department.DepartmentResponse;
 import org.example.model.department.RequestUpdateDepartmentName;
-import org.example.repository.DepartmentRepository;
 import org.example.service.DepartmentService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("department")
+@RequestMapping("departmentPage")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Validated
@@ -32,9 +31,11 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public List<DepartmentResponse> findAll() {
-        return departmentService.findAll();
+    public List<DepartmentResponse> getAllDepartments() {
+        return departmentService.getAllDepartments();
     }
+
+
 
     @PostMapping("update-department-name/{id}")
     public void updateDepartmentName(@PathVariable Integer id, @RequestBody @Valid RequestUpdateDepartmentName requestUpdateDepartmentName) {

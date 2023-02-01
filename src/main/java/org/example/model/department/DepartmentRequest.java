@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.model.client.ClientResponseForDepartment;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +19,6 @@ public class DepartmentRequest {
     @NotBlank(message = "Invalid department name")
     private String departmentName;
 
-    private Integer client_id;
+    private Integer clientId;
 
 }

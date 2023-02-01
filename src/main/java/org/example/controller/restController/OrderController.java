@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("emptyBox")
+@RequestMapping("orderPage")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Validated
@@ -30,7 +30,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderResponse> findAll(){
-        return orderService.findAll();
+    public List<OrderResponse> getAllOrders(){
+        return orderService.getAllOrders();
     }
 }

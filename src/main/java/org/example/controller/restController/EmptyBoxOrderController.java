@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("emptyBoxOrder")
+@RequestMapping("emptyBoxOrderPage")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Validated

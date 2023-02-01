@@ -21,57 +21,78 @@
     <li class="nav-item">
         <form th:action="@{/welcome}">
             <button class="nav-link active"
-                    style="background-color: black;
+                    style="background-color:whitesmoke;
                     font-weight: bold;
-                    font-size: large;"
-                    aria-current="page">Home
+                    font-size: large;
+                     color: black"
+                    aria-current="page"> Home
             </button>
         </form>
     </li>
     <li class="nav-item">
         <form th:action="@{/client}">
-            <button class="nav-link active" style="background-color:black; font-weight: bold;
-                    font-size: large;">Clients</button>
+            <button class="nav-link active" style="background-color:whitesmoke; font-weight: bold;
+                    font-size: large; color: black">Clients
+            </button>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form th:action="@{/department}">
+            <button class="nav-link active" style="background-color:whitesmoke;font-weight: bold;
+                    font-size: large; color: black">Departments
+            </button>
         </form>
     </li>
     <li class="nav-item">
         <form th:action="@{/box}">
-            <button class="nav-link active" style="background-color:black; font-weight: bold;
-                    font-size: large;">Boxes</button>
+            <button class="nav-link active" style="background-color:whitesmoke;font-weight: bold;
+                    font-size: large; color: black">Boxes
+            </button>
         </form>
     </li>
     <li class="nav-item">
         <form th:action="@{/order}">
-            <button class="nav-link active" style="background-color:black; font-weight: bold;
-                    font-size: large;">Box Order</button>
+            <button class="nav-link active" style="background-color:whitesmoke; font-weight: bold;
+                    font-size: large; color: black">Box Orders
+            </button>
         </form>
     </li>
     <li class="nav-item">
-        <form th:action="@{/empty-box-order}" >
-            <button class="nav-link active" style="background-color:black; font-weight: bold;
-                    font-size: large;">Empty Box Order</button>
+        <form th:action="@{/emptyBox}">
+            <button class="nav-link active" style="background-color:whitesmoke; font-weight: bold;
+                    font-size: large; color: black">Empty Boxes
+            </button>
+        </form>
+    </li>
+    <li class="nav-item">
+        <form th:action="@{/emptyBoxOrder}">
+            <button class="nav-link active" style="background-color:whitesmoke; font-weight: bold;
+                    font-size: large; color: black">Empty Boxes Order
+            </button>
         </form>
     </li>
 </ul>
 
 <div style="padding-top: 30px; padding-left: 5px">
-<form th:action="@{/client/allClients}">
-    <div style="padding-top: 30px; padding-left: 5px">
-        <button type="submit" class="btn btn-secondary"> Show all clients</button>
-    </div>
-</form>
-<form th:action="@{/client/goToCreateClientPage}">
-    <div style="padding-top: 30px; padding-left: 5px">
-        <button type="submit" class="btn btn-secondary"> Add new client</button>
-    </div>
-</form>
+    <form th:action="@{/client/allClients}">
+        <div style="padding-top: 5px">
+            <button type="submit" class="btn btn-secondary"> Show all clients</button>
+        </div>
+    </form>
+    <form th:action="@{/client/goToCreateClientPage}">
+        <div style="padding-top: 5px">
+            <button type="submit" class="btn btn-secondary"> Add new client</button>
+        </div>
+    </form>
+    <form th:action="@{/client/goToUpdateClientPage}">
+        <div style="padding-top: 5px">
+            <button type="submit" class="btn btn-secondary"> Update client</button>
+            <input style="background-color:antiquewhite; color: black"
+                   type="text" name="clientName" placeholder="Client name"
+                   required>
+        </div>
+    </form>
 </div>
-<form th:action="@{/client/goToUpdateClientName}">
-    <div style="padding-top: 30px; padding-left: 5px">
-        <button type="submit" class="btn btn-secondary"> Update name for a client</button>
-        <input type="text" name="clientName" placeholder="Client name" required>
-    </div>
-</form>
 
 </body>
 </html>

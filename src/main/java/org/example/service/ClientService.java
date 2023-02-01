@@ -11,7 +11,9 @@ import org.example.model.Order.OrderResponseForClientDetail;
 import org.example.model.box.BoxResponse;
 import org.example.model.box.BoxResponseForClientDetail;
 import org.example.model.client.*;
+import org.example.repository.BoxRepository;
 import org.example.repository.ClientRepository;
+import org.example.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,8 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     private final ClientMapper clientMapper;
+    private final BoxRepository boxRepository;
+    private final DepartmentRepository departmentRepository;
 
     public ClientResponse createClient(ClientRequest clientRequest) {
         for (Client client : clientRepository.findAll()) {
@@ -50,30 +54,6 @@ public class ClientService {
     }
 
 
-    public ClientDetailResponseForBox findByIdWithDetails(Integer id) {
-
-        Client client = clientRepository.findById(id).orElseThrow(() -> new BusinessException("Client not found"));
-        ClientDetailResponseForBox clientDetailResponseForBox = new ClientDetailResponseForBox();
-        clientDetailResponseForBox.setClientName(client.getClientName());
-        clientDetailResponseForBox.setBoxes(new ArrayList<>());
-        for (Box box : client.getBoxes()) {
-            BoxResponse boxResponse = new BoxResponse();
-            boxResponse.setClientBoxCode(box.getClientBoxCode());
-            boxResponse.setBoxType(box.getBoxType());
-            boxResponse.setBoxSummary(box.getBoxSummary());
-            boxResponse.setBeginningDate(box.getBeginningDate());
-            boxResponse.setEndDate(box.getEndDate());
-            boxResponse.setStorageTime(box.getStorageTime());
-            boxResponse.setStatus(box.getStatus());
-            boxResponse.setNomenclatureId(box.getNomenclatureId());
-            boxResponse.setClient_id(box.getClient().getId());
-            boxResponse.setDepartment_id(box.getDepartment().getId());
-
-            clientDetailResponseForBox.getBoxes().add(boxResponse);
-        }
-        return clientDetailResponseForBox;
-    }
-
 
 //    public ClientDetailResponseForOrder findAllBoxOrders(Integer id){
 //        Client client = clientRepository.findById(id).orElseThrow(()-> new BusinessException("Client not found"));
@@ -92,6 +72,29 @@ public class ClientService {
 //        return clientDetailResponseForOrder;
 //    }
 
+    public ClientDetailResponseForBox findByIdWithDetails(Integer id){
+        Client client = clientRepository.findById(id).orElseThrow(() -> new BusinessException("Client not found"));
+        return createClientDetailsResponseForBox(client);
+    }
+
+    private ClientDetailResponseForBox createClientDetailsResponseForBox(Client client){
+        ClientDetailResponseForBox clientDetailResponseForBox = new ClientDetailResponseForBox();
+        clientDetailResponseForBox.setClientName(client.getClientName());
+        clientDetailResponseForBox.setBoxes(new ArrayList<>());
+        for(Box box : client.getBoxes()){
+            BoxResponseForClientDetail boxResponseForClientDetail = new BoxResponseForClientDetail();
+            boxResponseForClientDetail.setClientBoxCode(box.getClientBoxCode());
+            boxResponseForClientDetail.setSummary(box.getBoxSummary());
+            boxResponseForClientDetail.setBeginningDate(box.getBeginningDate());
+            boxResponseForClientDetail.setEndDate(box.getEndDate());
+            boxResponseForClientDetail.setStorageTime(box.getStorageTime());
+            clientDetailResponseForBox.getBoxes().add(boxResponseForClientDetail);
+        }
+        return clientDetailResponseForBox;
+    }
+
+
+
     public void updateAddress(Integer id, RequestUpdateAddress requestUpdateAddress) {
         Client clientAddressToUpdate = clientRepository.findById(id).orElseThrow(
                 () -> new BusinessException(String.format("Client with id: %s not found", id))
@@ -103,14 +106,14 @@ public class ClientService {
         Client clientEmailToUpdate = clientRepository.findById(id).orElseThrow(
                 () -> new BusinessException(String.format("Client with id: %s not found", id))
         );
-        clientEmailToUpdate.setAddress(requestUpdateEmailClient.getClientEmail());
+        clientEmailToUpdate.setClientEmail(requestUpdateEmailClient.getClientEmail());
     }
 
-    public void updateClientName(Integer id, RequestUpdateNameClient requestUpdateNameClient) {
-        Client clientNameToUpdate = clientRepository.findById(id).orElseThrow(
-                () -> new BusinessException(String.format("Client with id: %s not found", id))
+    public void updateClientName(RequestUpdateNameClient requestUpdateNameClient) {
+        Client clientNameToUpdate = clientRepository.findById(requestUpdateNameClient.getId()).orElseThrow(
+                () -> new BusinessException(String.format("Client with id: %s not found", requestUpdateNameClient.getId()))
         );
-        clientNameToUpdate.setAddress(requestUpdateNameClient.getClientName());
+        clientNameToUpdate.setClientName(requestUpdateNameClient.getClientName());
     }
 
     public void deleteById(Integer id) {
@@ -124,10 +127,10 @@ public class ClientService {
 
     public ClientDetailResponseForOrder clientWithBoxOrders(Integer id) {
         Client client = clientRepository.findById(id).orElseThrow(()-> new BusinessException("Client not found"));
-        return createClientDetailsResponse(client);
+        return createClientDetailsResponseForOrder(client);
     }
 
-    private ClientDetailResponseForOrder createClientDetailsResponse(Client client){
+    private ClientDetailResponseForOrder createClientDetailsResponseForOrder(Client client){
         ClientDetailResponseForOrder clientDetailResponseForOrder = new ClientDetailResponseForOrder();
         clientDetailResponseForOrder.setClientName(client.getClientName());
         clientDetailResponseForOrder.setOrders(new ArrayList<>());
@@ -144,5 +147,17 @@ public class ClientService {
             clientDetailResponseForOrder.getOrders().add(orderResponseForClientDetail);
         }
         return clientDetailResponseForOrder;
+    }
+
+    public void updateClient(ClientRequest clientRequest) {
+        for (Client client : clientRepository.findAll()) {
+            if (client.getClientName().equalsIgnoreCase(clientRequest.getClientName())) {
+                throw new BusinessException("This client already exists!");
+            }
+        }
+       Client clientToUpdate = clientRepository.findById(clientRequest.getId()).orElseThrow(()-> new BusinessException("Client not found"));
+        clientToUpdate.setClientName(clientRequest.getClientName());
+        clientToUpdate.setAddress(clientRequest.getAddress());
+        clientToUpdate.setClientEmail(clientRequest.getClientEmail());
     }
 }

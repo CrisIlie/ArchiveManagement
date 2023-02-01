@@ -2,11 +2,14 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Box;
+import org.example.entity.Department;
 import org.example.entity.statusEnum.BoxStatusEnum;
 import org.example.exception.BusinessException;
 import org.example.mapper.BoxMapper;
 import org.example.model.box.*;
 import org.example.repository.BoxRepository;
+import org.example.repository.ClientRepository;
+import org.example.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +24,8 @@ public class BoxService {
     private final BoxRepository boxRepository;
 
     private final BoxMapper boxMapper;
+    private final ClientRepository clientRepository;
+    private final DepartmentRepository departmentRepository;
 
     public BoxResponse createBox(BoxRequest boxRequest) {
         for (Box box : boxRepository.findAll()) {
@@ -29,14 +34,18 @@ public class BoxService {
             }
         }
         validateClientBoxCode(boxRequest.getClientBoxCode());
-        Box box = boxMapper.map(boxRequest);
-        box.setStatus(BoxStatusEnum.IN_ARCHIVE);
-        return boxMapper.map(boxRepository.save(box));
+        Box boxToSave = boxMapper.map(boxRequest);
+        boxToSave.setClient(clientRepository.findById(boxRequest.getClientId()).orElseThrow(()-> new BusinessException("Client not found")));
+        Department department = departmentRepository.findById(boxRequest.getDepartmentId()).orElseThrow(()->new BusinessException("Department not found"));
+        boxToSave.setDepartment(department);
+
+//        boxToSave.setStatus(BoxStatusEnum.IN_ARCHIVE);
+        return boxMapper.map(boxRepository.save(boxToSave));
     }
 
     public void validateClientBoxCode(String string) {
         if (string.isBlank() || string.length() < 6) {
-            throw new BusinessException("Invalid client box code!");
+            throw new BusinessException("Invalid client box code! Box code must be minimum 6 characters long");
         }
     }
 
@@ -48,10 +57,22 @@ public class BoxService {
                 () -> new BusinessException("Box id not found")
         ));
     }
-    public List<BoxResponse> findAll() {
-        return boxMapper.map(boxRepository.findAll());
-    }
 
+    public void updateBox(BoxRequest boxRequest){
+        for (Box box: boxRepository.findAll()){
+            if(box.getClientBoxCode().equalsIgnoreCase(boxRequest.getClientBoxCode())){
+                throw new BusinessException("This box already exists!");
+            }
+        }
+
+        Box boxToUpdate = boxRepository.findById(boxRequest.getId()).orElseThrow(()-> new BusinessException("Box not found!"));
+        boxToUpdate.setClientBoxCode(boxRequest.getClientBoxCode());
+        boxToUpdate.setBoxType(boxRequest.getBoxType());
+        boxToUpdate.setBoxSummary(boxRequest.getBoxSummary());
+        boxToUpdate.setBeginningDate(boxRequest.getBeginningDate());
+        boxToUpdate.setEndDate(boxRequest.getEndDate());
+        boxToUpdate.setStorageTime(boxRequest.getStorageTime());
+    }
 
     public void updateBoxType(Integer id, RequestUpdateBoxType requestUpdateBoxType) {
         Box boxToUpdate = boxRepository.findById(id).orElseThrow(

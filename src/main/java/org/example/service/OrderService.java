@@ -45,14 +45,13 @@ public class OrderService {
         return orderMapper.map(orderRepository.save(boxOrder));
     }
 
+    public List<OrderResponse> getAllOrders(){
+        return orderMapper.map(orderRepository.findAll());
+    }
 
     public OrderResponse findById(Integer id){
         return orderMapper.map(orderRepository.findById(id).orElseThrow(()-> new BusinessException(
                 "Box order not found")));
-    }
-
-    public List<OrderResponse> findAll(){
-        return orderMapper.map(orderRepository.findAll());
     }
 
     }

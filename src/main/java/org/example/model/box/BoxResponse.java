@@ -2,6 +2,8 @@ package org.example.model.box;
 
 import lombok.Data;
 import org.example.entity.statusEnum.BoxStatusEnum;
+import org.example.model.client.ClientResponseForBox;
+import org.example.model.department.DepartmentResponseForBox;
 
 import java.time.LocalDate;
 
@@ -18,7 +20,7 @@ public class BoxResponse {
     private LocalDate beginningDate;
     private LocalDate endDate;
     private Integer storageTime;
-    private Integer department_id;
-    private Integer client_id;
-    private Integer order_id;
+    private DepartmentResponseForBox department;
+    private ClientResponseForBox client;
+
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -26,21 +27,21 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @FutureOrPresent
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate boxOrderDate;
 
     @NotNull
     private Boolean delivered;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Client client;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "box_orders", joinColumns =
             {@JoinColumn(name = "order_id", referencedColumnName = "id")},
            inverseJoinColumns = {@JoinColumn(name = "box_id", referencedColumnName = "id")})
     @Builder.Default
     private Set<Box> orderedBoxes = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Client client;
 
 }
 

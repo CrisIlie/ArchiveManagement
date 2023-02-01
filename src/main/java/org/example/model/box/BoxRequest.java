@@ -50,5 +50,4 @@ public class BoxRequest {
 
     private Integer clientId;
 
-    private Integer orderId;
 }

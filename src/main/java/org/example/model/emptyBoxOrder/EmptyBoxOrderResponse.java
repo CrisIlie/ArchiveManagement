@@ -1,6 +1,7 @@
 package org.example.model.emptyBoxOrder;
 
 import lombok.Data;
+import org.example.model.client.ClientResponseForEmptyBoxOrderResponse;
 
 import java.time.LocalDate;
 
@@ -10,6 +11,6 @@ public class EmptyBoxOrderResponse {
     private String boxType;
     private Integer orderedAmount;
     private LocalDate orderDate;
-    private Integer client_id;
+    private ClientResponseForEmptyBoxOrderResponse client;
 
 }

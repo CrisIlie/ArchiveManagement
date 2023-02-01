@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.List;
 
 @ComponentScan
-@Mapper(componentModel = "spring")
+@Mapper
 public interface BoxMapper {
 
     Box map(BoxRequest boxRequest);
@@ -16,12 +16,5 @@ public interface BoxMapper {
     BoxResponse map(Box box);
 
     List<BoxResponse> map(List<Box> all);
-
-    Box map(RequestUpdateSummary requestUpdateSummary);
-
-    Box map(RequestUpdateStorageTime requestUpdateStorageTime);
-
-    Box map(RequestUpdateBoxType requestUpdateBoxType);
-
 
 }

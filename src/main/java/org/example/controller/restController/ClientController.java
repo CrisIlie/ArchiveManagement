@@ -35,15 +35,9 @@ public class ClientController {
     }
 
     @GetMapping("find/details/{id}")
-    public ClientDetailResponseForBox findByIdWithDetails(@PathVariable("id") Integer id){
+    public ClientDetailResponseForBox findByIdWithDetails(@PathVariable Integer id){
         return clientService.findByIdWithDetails(id);
     }
-
-
-//    @GetMapping("find/box-orders-details/{id}")
-//    public ClientDetailResponseForOrder findAllBoxOrders(@PathVariable("id") Integer id){
-//        return clientService.findAllBoxOrders(id);
-//    }
 
     @PostMapping("update-client-address/{id}")
     public void updateAddress(@PathVariable Integer id, @RequestBody @Valid RequestUpdateAddress requestUpdateAddress) {
@@ -56,8 +50,8 @@ public class ClientController {
     }
 
     @PostMapping("update-client-name/{id}")
-    public void updateClientName(@PathVariable Integer id, @RequestBody @Valid RequestUpdateNameClient requestUpdateNameClient) {
-        clientService.updateClientName(id, requestUpdateNameClient);
+    public void updateClientName(@RequestBody @Valid RequestUpdateNameClient requestUpdateNameClient) {
+        clientService.updateClientName(requestUpdateNameClient);
     }
 
     @DeleteMapping("{id}")

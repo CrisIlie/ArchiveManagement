@@ -1,12 +1,14 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.entity.Client;
 import org.example.entity.Department;
 import org.example.exception.BusinessException;
 import org.example.mapper.DepartmentMapper;
 import org.example.model.department.DepartmentRequest;
 import org.example.model.department.DepartmentResponse;
 import org.example.model.department.RequestUpdateDepartmentName;
+import org.example.repository.ClientRepository;
 import org.example.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +23,23 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     private final DepartmentMapper departmentMapper;
+    private final ClientRepository clientRepository;
 
     public DepartmentResponse createDepartment(DepartmentRequest departmentRequest) {
-        checkDuplicate(departmentRequest);
-        Department department = departmentMapper.map(departmentRequest);
-        return departmentMapper.map(departmentRepository.save(department));
-    }
-
-    private void checkDuplicate(DepartmentRequest departmentRequest) {
         for (Department department : departmentRepository.findAll()) {
-            if (department.getDepartmentName().equalsIgnoreCase(department.getDepartmentName())) {
+            if (department.getDepartmentName().equalsIgnoreCase(departmentRequest.getDepartmentName())) {
                 throw new BusinessException("This department already exists");
             }
         }
+        Department departmentToSave = departmentMapper.map(departmentRequest);
+
+        Client client = clientRepository.findById(departmentRequest.getClientId()).orElseThrow(() -> new BusinessException("Client not found"));
+        departmentToSave.setClient(client);
+
+        return departmentMapper.map(departmentRepository.save(departmentToSave));
     }
 
-    public List<DepartmentResponse> findAll() {
+    public List<DepartmentResponse> getAllDepartments() {
         return departmentMapper.map(departmentRepository.findAll());
     }
 
@@ -53,9 +56,20 @@ public class DepartmentService {
         departmentNameToUpdate.setDepartmentName(requestUpdateDepartmentName.getDepartmentName());
     }
 
-    public void deleteById(Integer id){
+    public void updateDepartment(DepartmentRequest departmentRequest) {
+        for (Department department : departmentRepository.findAll()) {
+            if (department.getDepartmentName().equalsIgnoreCase(departmentRequest.getDepartmentName())) {
+                throw new BusinessException("This department already exists");
+            }
+        }
+        Department departmentToUpdate = departmentRepository.findById(departmentRequest.getId()).orElseThrow(() -> new BusinessException("Department not found"));
+        departmentToUpdate.setDepartmentName(departmentRequest.getDepartmentName());
+        departmentToUpdate.setClient(clientRepository.getReferenceById(departmentToUpdate.getId()));
+    }
+
+    public void deleteById(Integer id) {
         Department departmentToDelete = departmentRepository.findById(id).orElseThrow(
-                ()-> new BusinessException("Department not found")
+                () -> new BusinessException("Department not found")
         );
         departmentRepository.deleteById(departmentToDelete.getId());
     }

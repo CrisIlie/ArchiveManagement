@@ -42,13 +42,13 @@ public class EmptyBoxService {
         ));
     }
 
-    public List<EmptyBoxResponse> findAll(){
+    public List<EmptyBoxResponse> getAllEmptyBoxes(){
         return emptyBoxMapper.map(emptyBoxRepository.findAll());
     }
 
-    public void updateStock(Integer id, RequestUpdateStock requestUpdateStock){
-        EmptyBox emptyBoxStockToUpdate = emptyBoxRepository.findById(id).orElseThrow(
-                () -> new BusinessException(String.format("Empty box type with id: %s not found", id))
+    public void updateStock(RequestUpdateStock requestUpdateStock){
+        EmptyBox emptyBoxStockToUpdate = emptyBoxRepository.findById(requestUpdateStock.getId()).orElseThrow(
+                () -> new BusinessException(String.format("Empty box type with id: %s not found", requestUpdateStock.getId()))
         );
         emptyBoxStockToUpdate.setStock(requestUpdateStock.getStock());
     }

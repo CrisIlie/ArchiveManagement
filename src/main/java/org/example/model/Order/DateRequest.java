@@ -5,30 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.entity.Client;
-import org.example.model.box.BoxResponse;
+import org.springframework.format.annotation.DateTimeFormat;
 
-
+import javax.validation.constraints.Future;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRequest {
-
-    private Integer id;
-
+public class DateRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate boxOrderDate;
-
-    private Boolean delivered;
-
-    private Integer clientId;
-
-    private List<Integer> orderedBoxesIds;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Future(message = "Please check the date")
+    private LocalDate date;
 }

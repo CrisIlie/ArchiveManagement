@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("box")
+@RequestMapping("boxPage")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Validated
@@ -30,9 +30,9 @@ public class BoxController {
         return boxService.findById(id);
     }
 
-    @GetMapping
-    public List<BoxResponse> findAll() {
-        return boxService.findAll();
+    @GetMapping("/list")
+    public List<BoxResponse> getAllBoxes() {
+        return boxService.getAllBoxes();
     }
 
     @PostMapping("update-box-type/{id}")
